@@ -1,10 +1,7 @@
 import numpy as np
 
-e = 2.718281
+# e = 2.718281
 pi = 3.141593
-
-#e**(-(x**2)) - np.cos(x)
-#(e**(-(x**2))- np.cos(x)) / (-2*x*(e**(-(x**2)) + np.sin(x)))
 
 def F(x):
   return np.sin(x) - np.cos(x)
@@ -52,19 +49,19 @@ def Bissection():
       a = x
       fa = fx
 
+    xFinal = x
     x = (a + b) / 2
     fx = F(x)
     currentPrecision = (b - a) / 2
     i += 1
 
-  return x
+  return xFinal
 
 def Error(xn, xn1):
   return abs(xn - xn1)
 
-def Newton():
+def Newton(xn):
   print("Newton")
-  xn = 0.654498541
   print("x0 = " + str(xn))
   definedError = 0.0001
   while True:
@@ -74,11 +71,24 @@ def Newton():
       return x
     xn = x
 
-b = Bissection()
-print(b)
-print("-----------------------------------")
+def PrintResults(): 
+  b = Bissection()
+  print("Resultado bissecção: " + str(b))
+  print("-----------------------------------")
 
-n = Newton()
-print(n)
+  n = Newton(b)
+  print("Resultado Newton: " + str(n))
 
-print("Erro absoluto: |" + str(n) + "-" + str(b) + "| = " + str(Error(n, b)))
+  #Considerando o valor n como absoluto e b como aproximação
+  print("Valor absoluto: " + str(n))
+  erroAbsoluto = Error(n, b);
+  print("Erro absoluto Bissecção: |" + str(n) + " - " + str(b) + "| = " + str(erroAbsoluto))
+  erroRelativo = erroAbsoluto / b
+  print("Erro relativo Bissecção: |" + str(erroAbsoluto) + " / " + str(b) + "| = " + str(erroRelativo))
+
+  erroAbsoluto = Error(n, n);
+  print("Erro absoluto Newton: |" + str(n) + "-" + str(n) + "| = " + str(erroAbsoluto))
+  erroRelativo = erroAbsoluto / n
+  print("Erro relativo Newton: |" + str(erroAbsoluto) + " / " + str(n) + "| = " + str(erroRelativo))
+
+PrintResults()
